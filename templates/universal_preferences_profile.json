@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org",
+  "title": "UniversalPreferencesProfile",
+  "description": "A universal schema for syncing privacy, display, sound, and smart home preferences.",
+  "type": "object",
+  "required": ["meta", "privacy_and_communication", "notifications", "display", "sound", "smart_home"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["version", "updated_at"],
+      "properties": {
+        "version": { "type": "string" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "profile_name": { "type": "string" }
+      }
+    },
+    "privacy_and_communication": {
+      "type": "object",
+      "properties": {
+        "data_sharing": { "type": "boolean" },
+        "ad_personalization": { "type": "boolean" },
+        "visibility": { "type": "string", "enum": ["public", "contacts_only", "private"] }
+      }
+    },
+    "notifications": {
+      "type": "object",
+      "properties": {
+        "global_mode": { "type": "string", "enum": ["all", "priority_only", "do_not_disturb"] }
+      }
+    },
+    "display": {
+      "type": "object",
+      "properties": {
+        "theme": { "type": "string", "enum": ["light", "dark", "system"] },
+        "font_size_scale": { "type": "number" }
+      }
+    },
+    "sound": {
+      "type": "object",
+      "properties": {
+        "master_volume": { "type": "integer", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "smart_home": {
+      "type": "object",
+      "required": ["climate", "lighting"],
+      "properties": {
+        "climate": {
+          "type": "object",
+          "required": ["preferred_unit", "target_temperature_home", "target_temperature_away"],
+          "properties": {
+            "preferred_unit": { "type": "string", "enum": ["C", "F"] },
+            "target_temperature_home": { "type": "number" },
+            "target_temperature_away": { "type": "number" },
+            "eco_mode_enabled": { "type": "boolean" }
+          }
+        },
+        "lighting": {
+          "type": "object",
+          "required": ["default_brightness", "color_temperature_kelvin"],
+          "properties": {
+            "default_brightness": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Percentage brightness" },
+            "color_temperature_kelvin": { "type": "integer", "minimum": 2000, "maximum": 6500, "description": "Warmth scale (2700k is warm, 5000k is daylight)" },
+            "adaptive_lighting": { "type": "boolean", "description": "Match room lighting to time of day automatically." }
+          }
+        }
+      }
+    }
+  }
+}
