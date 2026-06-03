@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portable Tech Preferences Portal</title>
+    <script src="https://tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen font-sans p-6">
+
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- Left Side: Interactive Input Configuration Interface -->
+        <main class="bg-gray-800 p-6 rounded-2xl shadow-xl border border-gray-700 space-y-6">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                    ⚙️ Personal Profile Builder
+                </h1>
+                <p class="text-sm text-gray-400 mt-1">Configure your universal experience boundaries below.</p>
+            </div>
+
+            <form id="preferencesForm" class="space-y-6">
+                <!-- Metadata Sub-Panel -->
+                <section class="border-l-4 border-indigo-500 pl-4 space-y-3">
+                    <h2 class="text-md font-semibold uppercase tracking-wider text-indigo-400">Profile Identity</h2>
+                    <div>
+                        <label class="block text-xs font-medium mb-1 text-gray-300">Configuration Name</label>
+                        <input type="text" id="profileName" value="My Global Profile" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500">
+                    </div>
+                </section>
+
+                <!-- Privacy & Communication -->
+                <section class="border-l-4 border-emerald-500 pl-4 space-y-3">
+                    <h2 class="text-md font-semibold uppercase tracking-wider text-emerald-400">Privacy & Data Tracking</h2>
+                    <div class="flex items-center justify-between">
+                        <label class="text-sm text-gray-300">Allow Global Telemetry & Sharing</label>
+                        <input type="checkbox" id="dataSharing" class="w-4 h-4 rounded text-emerald-500 focus:ring-0 bg-gray-900 border-gray-700">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="text-sm text-gray-300">Tailored Ad Personalization</label>
+                        <input type="checkbox" id="adPersonalization" class="w-4 h-4 rounded text-emerald-500 focus:ring-0 bg-gray-900 border-gray-700">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium mb-1 text-gray-300">Account Visibility Scope</label>
+                        <select id="visibility" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none">
+                            <option value="private">Strictly Private</option>
+                            <option value="contacts_only">Contacts Only</option>
+                            <option value="public">Fully Public</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- Display & System Theme -->
+                <section class="border-l-4 border-amber-500 pl-4 space-y-3">
+                    <h2 class="text-md font-semibold uppercase tracking-wider text-amber-400">Hardware Display Style</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium mb-1 text-gray-300">System Interface Theme</label>
+                            <select id="theme" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none">
+                                <option value="system">Match Device System</option>
+                                <option value="dark">Forced Dark Mode</option>
+                                <option value="light">Forced Light Mode</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium mb-1 text-gray-300">Font Scale Size</label>
+                            <input type="number" id="fontSizeScale" step="0.1" min="0.5" max="2.0" value="1.0" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Smart Home & Environmental Preferences -->
+                <section class="border-l-4 border-sky-500 pl-4 space-y-3">
+                    <h2 class="text-md font-semibold uppercase tracking-wider text-sky-400">Smart Home & Environment</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium mb-1 text-gray-300">Climate Scale</label>
+                            <select id="preferredUnit" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none">
+                                <option value="F">Fahrenheit (°F)</option>
+                                <option value="C">Celsius (°C)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium mb-1 text-gray-300">Home Temperature Target</label>
+                            <input type="number" id="targetTempHome" step="0.5" value="71.0" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium mb-1 text-gray-300">Lighting Brightness (%)</label>
+                            <input type="range" id="defaultBrightness" min="0" max="100" value="80" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-sky-500 mt-3">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium mb-1 text-gray-300">Lighting Warmth (Kelvin)</label>
+                            <input type="number" id="colorTempKelvin" min="2000" max="6500" value="2700" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none">
+                        </div>
+                    </div>
+                </section>
+            </form>
+        </main>
+
+        <!-- Right Side: Live Compiled Portable Output Schema -->
+        <aside class="bg-gray-800 p-6 rounded-2xl shadow-xl border border-gray-700 flex flex-col h-full space-y-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                        📄 Real-Time Compiled Profile
+                    </h2>
+                    <p class="text-sm text-gray-400">Validates instantly against your schema rules.</p>
+                </div>
+                <button id="copyBtn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-1.5 px-4 rounded-lg text-sm transition-all shadow-md">
+                    Copy Data
+                </button>
+            </div>
+
+            <!-- Code Output Viewport -->
+            <div class="flex-grow bg-gray-950 p-4 rounded-xl border border-gray-850 font-mono text-xs overflow-auto text-emerald-400 whitespace-pre-wrap max-h-[620px] shadow-inner" id="jsonOutput">
+                <!-- Data compiles dynamically here -->
+            </div>
+        </aside>
+    </div>
+
+    <!-- Interface Logic Pipeline Script -->
+    <script>
+        const formElements = [
+            'profileName', 'dataSharing', 'adPersonalization', 'visibility',
+            'theme', 'fontSizeScale', 'preferredUnit', 'targetTempHome',
+            'defaultBrightness', 'colorTempKelvin'
+        ];
+
+        function compilePreferences() {
+            // Generate real-time standard structural layout
+            const configProfile = {
+                meta: {
+                    version: "1.2.0",
+                    updated_at: new Date().toISOString(),
+                    profile_name: document.getElementById('profileName').value
+                },
+                privacy_and_communication: {
+                    data_sharing: document.getElementById('dataSharing').checked,
+                    ad_personalization: document.getElementById('adPersonalization').checked,
+                    visibility: document.getElementById('visibility').value
+                },
+                notifications: {
+                    global_mode: "all" // Managed automatically by system level rules
+                },
+                display: {
+                    theme: document.getElementById('theme').value,
+                    font_size_scale: parseFloat(document.getElementById('fontSizeScale').value) || 1.0
+                },
+                sound: {
+                    master_volume: 75
+                },
+                smart_home: {
+                    climate: {
+                        preferred_unit: document.getElementById('preferredUnit').value,
+                        target_temperature_home: parseFloat(document.getElementById('targetTempHome').value) || 68.0,
+                        target_temperature_away: 62.0,
+                        eco_mode_enabled: true
+                    },
+                    lighting: {
+                        default_brightness: parseInt(document.getElementById('defaultBrightness').value) || 100,
+                        color_temperature_kelvin: parseInt(document.getElementById('colorTempKelvin').value) || 2700,
+                        adaptive_lighting: true
+                }}};
+// Inject pretty-printed structural dataset down to dashboard viewportdocument.getElementById('jsonOutput').textContent = JSON.stringify(configProfile, null, 2);}
+// Attach listeners across all inputs for live change compilationformElements.forEach(elementId => {document.getElementById(elementId).addEventListener('input', compilePreferences);});
+// Copy button capability hookdocument.getElementById('copyBtn').addEventListener('click', () => {const rawTextData = document.getElementById('jsonOutput').textContent;navigator.clipboard.writeText(rawTextData);const btn = document.getElementById('copyBtn');btn.textContent = "Copied! ✓";btn.classList.replace('bg-indigo-600', 'bg-emerald-600');setTimeout(() => {btn.textContent = "Copy Data";btn.classList.replace('bg-emerald-600', 'bg-indigo-600');}, 2000);});
+// Initialize display upon boot loadingwindow.onload = compilePreferences;
