@@ -121,49 +121,79 @@
     </div>
 
     <!-- Interface Logic Pipeline Script -->
-    <script>
-        const formElements = [
-            'profileName', 'dataSharing', 'adPersonalization', 'visibility',
-            'theme', 'fontSizeScale', 'preferredUnit', 'targetTempHome',
-            'defaultBrightness', 'colorTempKelvin'
-        ];
+<script>
+  // Elements tracking list for layout mutations
+  const formElements = [
+    'profileName', 'dataSharing', 'adPersonalization', 'visibility',
+    'theme', 'fontSizeScale', 'preferredUnit', 'targetTempHome',
+    'defaultBrightness', 'colorTempKelvin'
+  ];
 
-        function compilePreferences() {
-            // Generate real-time standard structural layout
-            const configProfile = {
-                meta: {
-                    version: "1.2.0",
-                    updated_at: new Date().toISOString(),
-                    profile_name: document.getElementById('profileName').value
-                },
-                privacy_and_communication: {
-                    data_sharing: document.getElementById('dataSharing').checked,
-                    ad_personalization: document.getElementById('adPersonalization').checked,
-                    visibility: document.getElementById('visibility').value
-                },
-                notifications: {
-                    global_mode: "all" // Managed automatically by system level rules
-                },
-                display: {
-                    theme: document.getElementById('theme').value,
-                    font_size_scale: parseFloat(document.getElementById('fontSizeScale').value) || 1.0
-                },
-                sound: {
-                    master_volume: 75
-                },
-                smart_home: {
-                    climate: {
-                        preferred_unit: document.getElementById('preferredUnit').value,
-                        target_temperature_home: parseFloat(document.getElementById('targetTempHome').value) || 68.0,
-                        target_temperature_away: 62.0,
-                        eco_mode_enabled: true
-                    },
-                    lighting: {
-                        default_brightness: parseInt(document.getElementById('defaultBrightness').value) || 100,
-                        color_temperature_kelvin: parseInt(document.getElementById('colorTempKelvin').value) || 2700,
-                        adaptive_lighting: true
-                }}};
-// Inject pretty-printed structural dataset down to dashboard viewportdocument.getElementById('jsonOutput').textContent = JSON.stringify(configProfile, null, 2);}
-// Attach listeners across all inputs for live change compilationformElements.forEach(elementId => {document.getElementById(elementId).addEventListener('input', compilePreferences);});
-// Copy button capability hookdocument.getElementById('copyBtn').addEventListener('click', () => {const rawTextData = document.getElementById('jsonOutput').textContent;navigator.clipboard.writeText(rawTextData);const btn = document.getElementById('copyBtn');btn.textContent = "Copied! ✓";btn.classList.replace('bg-indigo-600', 'bg-emerald-600');setTimeout(() => {btn.textContent = "Copy Data";btn.classList.replace('bg-emerald-600', 'bg-indigo-600');}, 2000);});
-// Initialize display upon boot loadingwindow.onload = compilePreferences;
+  /**
+   * Compiles the structural data mapping array from current UI state
+   */
+  function compilePreferences() {
+    // Generate real-time standard structural layout
+    const configProfile = {
+      meta: {
+        version: "1.2.0",
+        updated_at: new Date().toISOString(),
+        profile_name: document.getElementById('profileName').value
+      },
+      privacy_and_communication: {
+        data_sharing: document.getElementById('dataSharing').checked,
+        ad_personalization: document.getElementById('adPersonalization').checked,
+        visibility: document.getElementById('visibility').value
+      },
+      notifications: {
+        global_mode: "all" // Managed automatically by system level rules
+      },
+      display: {
+        theme: document.getElementById('theme').value,
+        font_size_scale: parseFloat(document.getElementById('fontSizeScale').value) || 1.0
+      },
+      sound: {
+        master_volume: 75
+      },
+      smart_home: {
+        climate: {
+          preferred_unit: document.getElementById('preferredUnit').value,
+          target_temperature_home: parseFloat(document.getElementById('targetTempHome').value) || 68.0,
+          target_temperature_away: 62.0,
+          eco_mode_enabled: true
+        },
+        lighting: {
+          default_brightness: parseInt(document.getElementById('defaultBrightness').value) || 100,
+          color_temperature_kelvin: parseInt(document.getElementById('colorTempKelvin').value) || 2700,
+          adaptive_lighting: true
+        }
+      }
+    };
+
+    // Inject pretty-printed structural dataset down to dashboard viewport
+    document.getElementById('jsonOutput').textContent = JSON.stringify(configProfile, null, 2);
+  }
+
+  // Attach listeners across all inputs for live change compilation
+  formElements.forEach(elementId => {
+    document.getElementById(elementId).addEventListener('input', compilePreferences);
+  });
+
+  // Copy button capability hook
+  document.getElementById('copyBtn').addEventListener('click', () => {
+    const rawTextData = document.getElementById('jsonOutput').textContent;
+    navigator.clipboard.writeText(rawTextData);
+    
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = "Copied! ✓";
+    btn.classList.replace('bg-indigo-600', 'bg-emerald-600');
+    
+    setTimeout(() => {
+      btn.textContent = "Copy Data";
+      btn.classList.replace('bg-emerald-600', 'bg-indigo-600');
+    }, 2000);
+  });
+
+  // Initialize display upon boot loading
+  window.onload = compilePreferences;
+</script>
