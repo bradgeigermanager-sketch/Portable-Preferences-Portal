@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org",
+  "title": "UniversalUserPreferences",
+  "description": "Public, non-PII user configuration settings for application and OS adaptation.",
+  "type": "object",
+  "properties": {
+    "interface_theme": {
+      "type": "string",
+      "description": "Preferred UI styling mode.",
+      "enum": ["dark", "light", "high-contrast-dark", "high-contrast-light"]
+    },
+    "accessibility_motion": {
+      "type": "string",
+      "description": "Preference for animations and transitions.",
+      "enum": ["reduce-motion", "allow-animations"]
+    },
+    "typography_base_size": {
+      "type": "string",
+      "description": "Preferred reading scale for text.",
+      "enum": ["small", "standard", "large", "extra-large"]
+    },
+    "regional_time_format": {
+      "type": "string",
+      "description": "Preferred clock layout.",
+      "enum": ["12-hour", "24-hour"]
+    },
+    "data_density": {
+      "type": "string",
+      "description": "Visual layout compactness.",
+      "enum": ["compact", "comfortable", "spacious"]
+    }
+  }
+}
