@@ -1,0 +1,33 @@
+/* Application CSS Hooks for Preferences Engine */
+:root {
+  --engine-accent-color: #38bdf8; /* Default fallback */
+  --engine-transition-speed: 0.3s;
+}
+
+/* Theme Adaptations */
+html[data-theme="dark"] {
+  background-color: #0f172a;
+  color: #ffffff;
+}
+html[data-theme="sepia"] {
+  background-color: #f4ecd8;
+  color: #5b4636;
+}
+html[data-theme="oled-black"] {
+  background-color: #000000;
+  color: #f8fafc;
+}
+
+/* Layout Density Adjustments */
+html[data-density="compact"] .card-padding {
+  padding: 0.25rem;
+}
+html[data-density="spacious"] .card-padding {
+  padding: 2rem;
+}
+
+/* Button using the engine variable dynamically */
+.btn-primary {
+  background-color: var(--engine-accent-color);
+  transition: background-color var(--engine-transition-speed) ease;
+}
