@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org",
+  "title": "ComprehensiveUniversalPreferences",
+  "description": "A global, non-PII preference form. Set unsupported or undesired keys to null.",
+  "type": "object",
+  "properties": {
+    
+    "accessibility": {
+      "type": ["object", "null"],
+      "properties": {
+        "motion_reduction": { "type": ["boolean", "null"], "description": "True reduces animations, parallax, and transitions." },
+        "high_contrast": { "type": ["boolean", "null"], "description": "Forces high contrast text and borders." },
+        "screen_reader_optimized": { "type": ["boolean", "null"], "description": "Optimizes UI layout hierarchy for screen reader parsing." },
+        "font_dyslexic_friendly": { "type": ["boolean", "null"], "description": "Requests Dyslexic-friendly typefaces if available." },
+        "closed_captions_enabled": { "type": ["boolean", "null"], "description": "Enables text captions for all video/audio content automatically." },
+        "audio_description_enabled": { "type": ["boolean", "null"], "description": "Requests descriptive audio tracks for media." }
+      }
+    },
+
+    "ui_aesthetics": {
+      "type": ["object", "null"],
+      "properties": {
+        "color_theme": { "type": ["string", "null"], "enum": ["light", "dark", "system", "oled-black", "sepia"] },
+        "accent_color_hex": { "type": ["string", "null"], "pattern": "^#([A-Fa-f0-9]{6})$", "description": "Preferred primary brand/button color." },
+        "base_font_size_scale": { "type": ["number", "null"], "description": "Multiplier for text (e.g., 1.0 = default, 1.2 = 20% larger)." },
+        "layout_density": { "type": ["string", "null"], "enum": ["compact", "comfortable", "spacious"] },
+        "sidebar_position": { "type": ["string", "null"], "enum": ["left", "right", "hidden"] },
+        "sound_effects_enabled": { "type": ["boolean", "null"], "description": "Toggles interface sounds, clicks, and chimes." }
+      }
+    },
+
+    "localization_environment": {
+      "type": ["object", "null"],
+      "properties": {
+        "temperature_unit": { "type": ["string", "null"], "enum": ["celsius", "fahrenheit", "kelvin"] },
+        "measurement_system": { "type": ["string", "null"], "enum": ["metric", "imperial"] },
+        "clock_format": { "type": ["string", "null"], "enum": ["12-hour", "24-hour"] },
+        "first_day_of_week": { "type": ["string", "null"], "enum": ["monday", "sunday", "saturday"] },
+        "number_format_style": { "type": ["string", "null"], "enum": ["comma-decimal", "period-decimal"], "description": "e.g., 1,000.00 vs 1.000,00" }
+      }
+    },
+
+    "privacy_and_security_posture": {
+      "type": ["object", "null"],
+      "properties": {
+        "allow_telemetry": { "type": ["boolean", "null"], "description": "Permission to send anonymous usage data and crash logs." },
+        "third_party_cookies_blocked": { "type": ["boolean", "null"] },
+        "auto_clear_session_on_exit": { "type": ["boolean", "null"] },
+        "default_incognito_browsing": { "type": ["boolean", "null"] },
+        "global_privacy_control_active": { "type": ["boolean", "null"], "description": "Signals a strict 'Do Not Sell My Info' preference." }
+      }
+    },
+
+    "content_and_feeds": {
+      "type": ["object", "null"],
+      "properties": {
+        "autoplay_videos": { "type": ["boolean", "null"] },
+        "infinite_scroll_enabled": { "type": ["boolean", "null"], "description": "False forces classic 'Next/Previous' pagination." },
+        "sensitive_content_filter": { "type": ["string", "null"], "enum": ["strict", "moderate", "off"] },
+        "open_links_in_new_tab": { "type": ["boolean", "null"] },
+        "markdown_rendering_preferred": { "type": ["boolean", "null"], "description": "Prefer raw plain-text markdown over rich text editors." }
+      }
+    },
+
+    "ai_interaction_profile": {
+      "type": ["object", "null"],
+      "properties": {
+        "response_tone": { "type": ["string", "null"], "enum": ["concise-direct", "academic-detailed", "casual-friendly", "sarcastic-humorous"] },
+        "preferred_creativity_level": { "type": ["string", "null"], "enum": ["low-deterministic", "balanced", "high-creative"] },
+        "code_snippet_language": { "type": ["string", "null"], "description": "Default programming language when asking for code examples." },
+        "allow_ai_training_on_inputs": { "type": ["boolean", "null"], "description": "Global opt-out/in for model optimization tracking." }
+      }
+    }
+  }
+}
