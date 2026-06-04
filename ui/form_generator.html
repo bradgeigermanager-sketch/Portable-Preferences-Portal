@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Preference Hub - Form Generator</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --panel-bg: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+
+        .container { display: flex; width: 100%; height: 100%; }
+        .form-panel { width: 55%; padding: 2rem; overflow-y: auto; border-right: 1px solid var(--border-color); }
+        .preview-panel { width: 45%; padding: 2rem; background-color: #0b0f19; display: flex; flex-direction: column; }
+
+        h1 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text-main); }
+        .subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem; }
+        
+        fieldset { border: none; margin-bottom: 1.5rem; }
+        legend { font-size: 1.1rem; color: var(--accent); border-bottom: 1px solid var(--border-color); width: 100%; padding-bottom: 0.25rem; margin-bottom: 1rem; font-weight: bold; }
+
+        .form-group { margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+        .toggle-group { flex-direction: row; align-items: center; justify-content: space-between; padding: 0.5rem 0; }
+        
+        label { font-size: 0.85rem; font-weight: 600; color: #cbd5e1; }
+        .description { font-size: 0.75rem; color: var(--text-muted); display: block; }
+        
+        select, input[type="text"], input[type="number"] {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+            width: 100%;
+            transition: border 0.2s;
+        }
+        select:focus, input:focus { border-color: var(--accent); }
+
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border-color); transition: .3s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--accent); }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        .json-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        pre { background-color: #020617; border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; flex-grow: 1; overflow: auto; font-family: 'Courier New', monospace; font-size: 0.85rem; color: #34d399; }
+        
+        .btn { background-color: var(--accent); color: #000; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
+        .btn:hover { background-color: var(--accent-hover); }
+        .btn-secondary { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-main); margin-right: 0.5rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-panel">
+        <h1>Preference Profile Generator</h1>
+        <p class="subtitle">Customize configurations. Unchecked/empty fields default to null.</p>
+        
+        <form id="prefForm">
+            <fieldset>
+                <legend>1. Accessibility</legend>
+                <div class="form-group toggle-group">
+                    <label for="acc_motion">Reduce Motion <span class="description">Minimize UI animations</span></label>
+                    <label class="switch"><input type="checkbox" id="acc_motion"><span class="slider"></span></label>
+                </div>
+                <div class="form-group toggle-group">
+                    <label for="acc_contrast">High Contrast Mode <span class="description">Maximize visual readability</span></label>
+                    <label class="switch"><input type="checkbox" id="acc_contrast"><span class="slider"></span></label>
+                </div>
+                <div class="form-group toggle-group">
+                    <label for="acc_reader">Screen Reader Optimization <span class="description">Enforce flat web hierarchies</span></label>
+                    <label class="switch"><input type="checkbox" id="acc_reader"><span class="slider"></span></label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>2. UI / UX Aesthetics</legend>
+                <div class="form-group">
+                    <label for="ui_theme">Color Theme</label>
+                    <select id="ui_theme">
+                        <option value="">(Not Specified)</option>
+                        <option value="light">Light Mode</option>
+                        <option value="dark">Dark Mode</option>
+                        <option value="system">Follow System Environment</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ui_accent">Brand Accent Color (Hex)</label>
+                    <input type="text" id="ui_accent" placeholder="#38bdf8" pattern="^#([A-Fa-f0-9]{6})$">
+                </div>
+                <div class="form-group">
+                    <label for="ui_scale">Font Size Scale Multiplier</label>
+                    <input type="number" id="ui_scale" step="0.05" min="0.5" max="2.0" placeholder="1.0">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>3. Privacy & Security</legend>
+                <div class="form-group toggle-group">
+                    <label for="priv_telemetry">Allow Performance Telemetry <span class="description">Permit crash log delivery</span></label>
+                    <label class="switch"><input type="checkbox" id="priv_telemetry"><span class="slider"></span></label>
+                </div>
+                <div class="form-group toggle-group">
+                    <label for="priv_gpc">Global Privacy Control (GPC) <span class="description">Signal Do-Not-Track</span></label>
+                    <label class="switch"><input type="checkbox" id="priv_gpc"><span class="slider"></span></label>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="preview-panel">
+        <div class="json-header">
+            <h3>Live JSON Output</h3>
+            <div>
+                <button class="btn btn-secondary" onclick="clearForm()">Reset</button>
+                <button class="btn" onclick="copyJson()">Copy</button>
+            </div>
+        </div>
+        <pre id="jsonPreview">{}</pre>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('prefForm');
+    const preview = document.getElementById('jsonPreview');
+
+    function buildPreferencesJson() {
+        const payload = {
+            accessibility: {
+                motion_reduction: document.getElementById('acc_motion').checked || null,
+                high_contrast: document.getElementById('acc_contrast').checked || null,
+                screen_reader_optimized: document.getElementById('acc_reader').checked || null
+            },
+            ui_aesthetics: {
+                color_theme: document.getElementById('ui_theme').value || null,
+                accent_color_hex: document.getElementById('ui_accent').value || null,
+                base_font_size_scale: parseFloat(document.getElementById('ui_scale').value) || null
+            },
+            privacy: {
+                allow_telemetry: document.getElementById('priv_telemetry').checked ? true : null,
+                gpc_active: document.getElementById('priv_gpc').checked ? true : null
+            }
+        };
+
+        // Clean top-level objects if empty
+        Object.keys(payload).forEach(key => {
+            if (Object.values(payload[key]).every(v => v === null)) payload[key] = null;
+        });
+
+        preview.textContent = JSON.stringify(payload, null, 2);
+    }
+
+    form.addEventListener('input', buildPreferencesJson);
+    function copyJson() {
+        navigator.clipboard.writeText(preview.textContent);
+        alert('Configuration copied!');
+    }
+    function clearForm() {
+        form.reset();
+        buildPreferencesJson();
+    }
+
+    buildPreferencesJson();
+</script>
+</body>
+</html>
